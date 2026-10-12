@@ -1,3 +1,5 @@
+cd ~/vle7-app
+cat > deployment.yaml <<'EOF'
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,3 +37,4 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+EOF
