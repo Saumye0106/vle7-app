@@ -1,4 +1,3 @@
-cat > Jenkinsfile <<'EOF'
 pipeline {
   agent any
   triggers { pollSCM('H/2 * * * *') }
@@ -22,4 +21,3 @@ pipeline {
     }
   }
 }
-EOF
