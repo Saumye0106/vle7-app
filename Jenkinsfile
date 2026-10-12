@@ -1,14 +1,16 @@
 pipeline {
   agent any
+  triggers { pollSCM('H/2 * * * *') }
   stages {
-    stage('Build') {
+    stage('Update site content') {
       steps {
-        sh 'docker build -t myapp:${BUILD_NUMBER} .'
+        sh 'kubectl create configmap site-content --from-file=index.html --dry-run=client -o yaml | kubectl apply -f -'
       }
     }
     stage('Deploy') {
       steps {
         sh 'kubectl apply -f deployment.yaml'
+        sh 'kubectl rollout restart deployment/myapp'
       }
     }
     stage('Verify') {
